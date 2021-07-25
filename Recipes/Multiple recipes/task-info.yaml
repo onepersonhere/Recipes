@@ -252,6 +252,12 @@ files:
         String directions;
     }
   learner_created: true
+- name: src/recipes/RecipeStorage.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/180/stages/918/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Sun, 25 Jul 2021 08:36:44 UTC
+record: 2

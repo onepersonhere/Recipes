@@ -300,6 +300,121 @@ files:
         }
     }
   learner_created: false
+- name: src/recipes/controller.java
+  visible: true
+  text: |
+    package recipes;
+
+    import com.google.gson.*;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.web.bind.annotation.*;
+
+    import java.util.ArrayList;
+    import java.util.Arrays;
+    import java.util.List;
+
+    @Controller
+    public class controller {
+        @GetMapping(value = "/api/recipe/{id}", produces = "application/json")
+        @ResponseBody
+        public String getRecipeJson(@PathVariable int id){
+            Recipe recipe = RecipeStorage.findRecipeByID(id);
+            return new Gson().toJson(getRecipeAsJson(recipe));
+        }
+
+        @PostMapping(value = "/api/recipe/new", produces = "application/json")
+        @ResponseBody
+        public String postRecipe(@RequestBody String json){
+            int id = parseAddRecipe(json);
+            JsonObject jObj = new JsonObject();
+            jObj.addProperty("id", id);
+            return new Gson().toJson(jObj);
+        }
+
+        private JsonObject getRecipeAsJson(Recipe recipe){
+            JsonObject jObj = new JsonObject();
+            jObj.addProperty("name", recipe.getName());
+            jObj.addProperty("description", recipe.getDescription());
+            jObj.add("ingredients", getJsonArrFromArr(recipe.getIngredients()));
+            jObj.add("directions", getJsonArrFromArr(recipe.getDirections()));
+            return jObj;
+        }
+
+        private int parseAddRecipe(String json){
+            Gson gson = new Gson();
+            JsonObject jObj = new JsonParser().parse(json).getAsJsonObject();
+            Recipe recipe = new Recipe();
+            recipe.setName(jObj.get("name").getAsString());
+            recipe.setDescription(jObj.get("description").getAsString());
+            recipe.setIngredients(gson.fromJson(jObj.get("ingredients").getAsJsonArray(), String[].class));
+            recipe.setDirections(gson.fromJson(jObj.get("directions").getAsJsonArray(), String[].class));
+            recipe.setId(idGenerator());
+            RecipeStorage.addToList(recipe);
+            return recipe.getId();
+        }
+
+        private int idGenerator(){
+            return (int)(Math.random() * 999 + 1);
+        }
+
+        private JsonArray getJsonArrFromArr(String[] arr){
+            JsonArray jArr = new JsonArray();
+            for(int i = 0; i < arr.length; i++){
+                jArr.add(arr[i]);
+            }
+            return jArr;
+        }
+    }
+  learner_created: true
+- name: src/recipes/RecipeStorage.java
+  visible: true
+  text: |
+    package recipes;
+
+    import lombok.Data;
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.server.ResponseStatusException;
+
+    import java.util.ArrayList;
+    import java.util.List;
+
+    @Data
+    public class RecipeStorage {
+        static List<Recipe> recipeList = new ArrayList<>();
+        public static void addToList(Recipe recipe){
+            recipeList.add(recipe);
+        }
+        public static Recipe findRecipeByID(int id){
+            for(int i = 0; i < recipeList.size(); i++){
+                Recipe recipe = recipeList.get(i);
+                if(recipe.getId() == id){
+                    return recipe;
+                }
+            }
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+  learner_created: true
+- name: src/recipes/Recipe.java
+  visible: true
+  text: |
+    package recipes;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Recipe {
+        String name;
+        String description;
+        String[] ingredients;
+        String[] directions;
+        int id;
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/180/stages/919/implement#comment
 status: Unchecked
 record: -1
