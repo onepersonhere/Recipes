@@ -366,35 +366,6 @@ files:
         }
     }
   learner_created: true
-- name: src/recipes/RecipeStorage.java
-  visible: true
-  text: |
-    package recipes;
-
-    import lombok.Data;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.web.server.ResponseStatusException;
-
-    import java.util.ArrayList;
-    import java.util.List;
-
-    @Data
-    public class RecipeStorage {
-        static List<Recipe> recipeList = new ArrayList<>();
-        public static void addToList(Recipe recipe){
-            recipeList.add(recipe);
-        }
-        public static Recipe findRecipeByID(int id){
-            for(int i = 0; i < recipeList.size(); i++){
-                Recipe recipe = recipeList.get(i);
-                if(recipe.getId() == id){
-                    return recipe;
-                }
-            }
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
-  learner_created: true
 - name: src/recipes/Recipe.java
   visible: true
   text: |
@@ -415,6 +386,15 @@ files:
         int id;
     }
   learner_created: true
+- name: src/recipes/repos/Repo.java
+  visible: true
+  learner_created: true
+- name: src/recipes/repos/RecipeService.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/180/stages/919/implement#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Mon, 26 Jul 2021 01:09:37 UTC
+record: 3
