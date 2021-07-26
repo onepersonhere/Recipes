@@ -25,4 +25,9 @@ public class RecipeService {
     public void deleteRecipe(Recipe recipe){
         repo.delete(recipe);
     }
+
+    public void replaceRecipe(Recipe recipe){
+        deleteRecipe(recipe);
+        saveNewRecipe(recipe);
+    }
 }
