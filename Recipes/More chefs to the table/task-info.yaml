@@ -1168,6 +1168,28 @@ files:
     public interface Repo extends CrudRepository<Recipe, Integer> {
     }
   learner_created: true
+- name: src/recipes/userbase/Security.java
+  visible: true
+  learner_created: true
+- name: src/recipes/userbase/User.java
+  visible: true
+  learner_created: true
+- name: src/recipes/userbase/UserService.java
+  visible: true
+  learner_created: true
+- name: src/recipes/userbase/BasicConfiguration.java
+  visible: true
+  learner_created: true
+- name: src/recipes/userbase/UserRepo.java
+  visible: true
+  learner_created: true
+- name: src/recipes/userbase/CustomAuthenticationProvider.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/180/stages/921/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
+    Academy</a> to continue learning.
+  time: Tue, 27 Jul 2021 00:34:14 UTC
 record: -1

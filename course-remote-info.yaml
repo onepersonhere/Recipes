@@ -3,7 +3,7 @@ hyperskill_project:
   ide_files: https://stepik.org/media/attachments/lesson/529086/additional_files.json
   is_template_based: false
   use_ide: true
-update_date: Mon, 26 Jul 2021 04:22:28 UTC
+update_date: Mon, 26 Jul 2021 23:43:01 UTC
 stages:
 - id: 917
   step: 13088
@@ -19,7 +19,7 @@ stages:
   is_completed: true
 - id: 921
   step: 13092
-  is_completed: false
+  is_completed: true
 topics:
   0:
   - title: Write, compile, and run
@@ -196,10 +196,6 @@ topics:
     theory_id: 3624
   - title: The List interface
     theory_id: 3581
-  - title: Interface
-    theory_id: 3615
-  - title: Comparable
-    theory_id: 14456
   - title: Defining classes
     theory_id: 3618
   - title: Constructor
@@ -234,6 +230,10 @@ topics:
     theory_id: 3572
   - title: toString()
     theory_id: 3584
+  - title: Interface
+    theory_id: 3615
+  - title: Comparable
+    theory_id: 14456
   - title: Boxing and unboxing
     theory_id: 3595
   1:
@@ -328,10 +328,10 @@ topics:
     theory_id: 13856
   - title: Authentication
     theory_id: 14353
-  - title: Builder
-    theory_id: 5130
   - title: Authentication and Authorization
     theory_id: 14219
+  - title: Builder
+    theory_id: 5130
   - title: Polymorphism
     theory_id: 3587
   - title: Abstract class

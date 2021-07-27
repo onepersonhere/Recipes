@@ -38,4 +38,7 @@ public class Recipe {
     @Column
     @Id
     int id;
+
+    @Column
+    String author;
 }

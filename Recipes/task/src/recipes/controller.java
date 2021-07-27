@@ -2,7 +2,6 @@ package recipes;
 
 import com.google.gson.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 @Controller
@@ -69,11 +67,11 @@ public class controller {
         return new Gson().toJson(jArr);
     }
 
-
     @Autowired
     RecipeService service;
 
     List<Recipe> recipeList = new ArrayList<>();
+    static String author = "";
     public void addToList(Recipe recipe){
         recipeList.add(recipe);
         service.saveNewRecipe(recipe);
@@ -89,6 +87,9 @@ public class controller {
     }
     public void deleteRecipeByID(int id){
         Recipe recipe = findRecipeByID(id);
+        if(!recipe.getAuthor().equals(author)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         boolean isRecipe = false;
         for(int i = 0; i < recipeList.size();i++){
             if(recipeList.get(i) == recipe){
@@ -106,6 +107,9 @@ public class controller {
     }
     public void updateRecipe(String json, int id){
         Recipe recipe = findRecipeByID(id);
+        if(!recipe.getAuthor().equals(author)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
         boolean isRecipe = false;
         int i = 0;
         for(; i < recipeList.size();i++){
@@ -132,6 +136,7 @@ public class controller {
                 recipe.setIngredients(gson.fromJson(jObj.get("ingredients").getAsJsonArray(), List.class));
                 recipe.setDirections(gson.fromJson(jObj.get("directions").getAsJsonArray(), List.class));
                 recipe.setId(id);
+                recipe.setAuthor(author);
 
                 recipeList.set(i, recipe);
                 service.replaceRecipe(recipe);
@@ -193,6 +198,7 @@ public class controller {
             recipe.setIngredients(gson.fromJson(jObj.get("ingredients").getAsJsonArray(), List.class));
             recipe.setDirections(gson.fromJson(jObj.get("directions").getAsJsonArray(), List.class));
             recipe.setId(idGenerator());
+            recipe.setAuthor(author);
             addToList(recipe);
             return recipe.getId();
         }catch(Exception e){
@@ -259,5 +265,9 @@ public class controller {
             }
         }
         return sortedList;
+    }
+
+    public static void setAuthor(String author) {
+        controller.author = author;
     }
 }

@@ -816,7 +816,7 @@ files:
         int id;
     }
   learner_created: true
-- name: src/recipes/repos/Repo.java
+- name: src/recipes/repos/UserRepo.java
   visible: true
   text: |
     package recipes.repos;
